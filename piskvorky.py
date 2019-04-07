@@ -5,7 +5,6 @@ DELKA_POLE = 20
 SYMBOL_HRACE = "x"
 SYMBOL_POCITACE = "o"
 
-
 def vyhodnot(pole):
     """
     Podle stavu herního pole vrátí:
@@ -31,7 +30,7 @@ def tah_hrace(pole):
     tahem.
     """
     while True:
-        print('Hráč je na řadě.')
+        #print('Hráč je na řadě.')
         try:
             cislo_policka = int(input('Zadej pozici, na kterou chceš umístit symbol: '))
         except ValueError:
