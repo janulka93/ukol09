@@ -2,7 +2,7 @@ from random import randrange
 import ai
 DELKA_POLE = 20
 
-SYMBOL_HRACE = "x"
+#SYMBOL_HRACE = "x"
 SYMBOL_POCITACE = "o"
 
 def vyhodnot(pole):
@@ -13,7 +13,6 @@ def vyhodnot(pole):
      řetězec "!", když dojde k remíze nebo
      řetězec "-", když je možné ještě pokračovat ve hře
     """
-#rozhodnutí zda se v poli vyskytují dané řetězce - dle toho vracení hodnot
     if 'xxx' in pole:
         return 'x'
     elif 'ooo' in pole:
@@ -29,6 +28,7 @@ def tah_hrace(pole):
     Zeptá se hráče, kam chce hrát, a vrátí herní pole s jeho zaznamenaným
     tahem.
     """
+    symbol_hrace = 'x'
     while True:
         #print('Hráč je na řadě.')
         try:
@@ -41,7 +41,7 @@ def tah_hrace(pole):
                     print('Zadaná pozice je již obsazena.')
                     break
                 else:
-                    return tah(pole, cislo_policka, SYMBOL_HRACE)
+                    return tah(pole, cislo_policka, symbol_hrace)
             else:
                 print('Zadáváš blbosti.')
 
@@ -52,7 +52,7 @@ def tah(pole, cislo_policka, symbol):
     return pole[:cislo_policka] + symbol + pole[cislo_policka + 1:]
     pass
 
-#doplněna funkce vypis, která vypisuje dle výsledku funkce vyhodnot
+
 def vypis(varianta):
     """
     Vypíše výsledek v závislosti na volané funkci vyhodnot.

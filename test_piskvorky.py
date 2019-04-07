@@ -15,6 +15,8 @@ def test_vyhodnot_vyhra_x():
     assert piskvorky.vyhodnot("oxxxoxoxxooxxooxxoo-") == "x"
     assert piskvorky.vyhodnot("oxoxoxoxo-oxoxoxoxxx") == "x"
     assert piskvorky.vyhodnot("xxooxxoox-ooxxooxxxo") == "x"
+    assert piskvorky.vyhodnot("o-oxoxxoxxxoxxooxxoo") == "x"
+    assert piskvorky.vyhodnot("ooxoxxoox-xoxxxoxxoo") == "x"
 
 
 def test_vyhodnot_vyhra_o():
@@ -30,6 +32,8 @@ def test_vyhodnot_vyhra_o():
     assert piskvorky.vyhodnot("oooxxooxxooxxooxxoo-") == "o"
     assert piskvorky.vyhodnot("oxoxoxoxo-oxoxoxooox") == "o"
     assert piskvorky.vyhodnot("xxooxxoox-ooxxooxooo") == "o"
+    assert piskvorky.vyhodnot("x-xoxooxoooxooxxooxx") == "o"
+    assert piskvorky.vyhodnot("xxoxooxxo-oxoooxooxx") == "o"
 
 
 def test_vyhodnot_remiza():
@@ -38,6 +42,8 @@ def test_vyhodnot_remiza():
     """
     assert piskvorky.vyhodnot("oxoxoxoxoxoxoxoxoxox") == "!"
     assert piskvorky.vyhodnot("xxooxxooxxooxxooxxoo") == "!"
+    assert piskvorky.vyhodnot("xoxoxoxoxoxoxoxoxoxo") == "!"
+    assert piskvorky.vyhodnot("ooxxooxxooxxooxxooxx") == "!"
 
 
 def test_vyhodnot_hra():
@@ -52,6 +58,8 @@ def test_vyhodnot_hra():
     assert piskvorky.vyhodnot("xooxxooxxooxxooxxoo-") == "-"
     assert piskvorky.vyhodnot("oxoxoxoxo-oxoxoxoxox") == "-"
     assert piskvorky.vyhodnot("xxooxxoox-ooxxooxxoo") == "-"
+    assert piskvorky.vyhodnot("xxoo------------xxoo") == "-"
+    assert piskvorky.vyhodnot("oo----------------xx") == "-"
 
 
 def test_tah_x():
@@ -59,7 +67,9 @@ def test_tah_x():
     Pozitivní testy se symbolem "x".
     """
     assert piskvorky.tah("--------------------", 0, "x") == "x-------------------"
+    assert piskvorky.tah("--------------------", 5, "x") == "-----x--------------"
     assert piskvorky.tah("--------------------", 10, "x") == "----------x---------"
+    assert piskvorky.tah("--------------------", 15, "x") == "---------------x----"
     assert piskvorky.tah("--------------------", 19, "x") == "-------------------x"
 
 
@@ -68,7 +78,9 @@ def test_tah_o():
     Pozitivní testy se symbolem "o".
     """
     assert piskvorky.tah("--------------------", 0, "o") == "o-------------------"
+    assert piskvorky.tah("--------------------", 5, "o") == "-----o--------------"
     assert piskvorky.tah("--------------------", 10, "o") == "----------o---------"
+    assert piskvorky.tah("--------------------", 15, "o") == "---------------o----"
     assert piskvorky.tah("--------------------", 19, "o") == "-------------------o"
 
 
@@ -127,6 +139,35 @@ def test_tah_pocitace_skoro_plne_konec_2():
     assert result.count("o") == 10
     assert result.count("-") == 1
 
+
+def test_tah_pocitace_delka_pole_25_prazdne():
+    """
+    Hra na prázdné pole s délkou 25.
+    """
+    pole = "-------------------------"
+    result = ai.tah_pocitace(pole)
+    assert len(result) == 25
+    assert result.count("-") == 24
+    assert result.count("o") == 1
+
+#
+# def test_tah_pocitace_plne_pole():
+#     """
+#     Hra na plné pole.
+#     """
+#     pole = 'xoxoxoxoxoxoxoxoxoxo'
+#     with pytest.raises(ValueError):
+#         ai.tah_pocitace(pole)
+
+# def test_tah_pocitace_delka_pole_0():
+#     """
+#     Hra na pole s délkou 0.
+#     """
+#     pole = ''
+#     result = ai.tah_pocitace(pole)
+#     assert len(result) == 0
+#     with pytest.raises(ValueError):
+#         ai.tah_pocitace(pole)
 
 if __name__ == "__main__":
     pytest.main()
